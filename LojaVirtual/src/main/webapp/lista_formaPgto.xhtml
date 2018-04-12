@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Formas de Pagamentos</title>
+</h:head>
+<h:body>
+	<h:form id="form">
+	
+		<p:growl id="msgs" showDetail="true" />
+		
+		<div align="right">
+			<h:commandLink>
+				<p:graphicImage value="/publico/imagens/excel.png" width="24"/>
+				<p:dataExporter type="xls" target="tbl" fileName="f" />
+			</h:commandLink>
+			
+			<h:commandLink>
+				<p:graphicImage value="/public/images/pdf.png" width ="24"/>
+				<p:dataExporter type ="pdf" target= "tbl" fileName="f"/>
+			</h:commandLink>
+			
+			<h:commandLink>
+				<p:graphicImage value="/public/imagens/csv.png" width= "24"/>
+				<p:dataExporter type="csv" target="tbl" fileName="f" />			
+			</h:commandLink>
+		
+			<h:commandLink>
+				<p:graphicImage value="/publico/imagens/xml.png" width="24" />
+				<p:dataExporter type="xml" target="tbl" fileName="f"/>
+			</h:commandLink>
+		</div>
+		
+		<p:dataTable id="tbl" var ="f" value="#{formaPgtoCtrl.listagem}"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink}
+					{PageLinks} {NextPageLink} {LastPageLink}"
+					paginator="true" rows="10" style="margin-bottom:20px">
+					
+			<f:facet name="header">
+				<h:outputLabel value="Formas de Pagamento"/>
+				<p:commandButton value="Inserir" icon="icon-novo"
+					actionListener="#{formaPgtoCrtl.actionInserir}"
+					oncomplete="PF('cadDialog').show()"
+					update=":form:cadDetail">
+				</p:commandButton>
+			</f:facet>	
+			
+			<p:column headerText="Descrição" sortBy="f.descricao">
+				<h:outputText value="#{f.id}"/> 
+			</p:column>
+			
+			<p:column headerText= "Nº Máx. Parc." sortBy="f.numMaxParc">
+				<h:outputText value="#{f.numMaxParc}" />
+			</p:column>
+			
+			<p:column style="width:32px;text-align: center">
+				<p:commandButton update=":form:cadDetail" oncomplete="PF('cadDialog').show()"
+				icon="ui-icon-search" title="View">
+				<f:setPropertyActionListener value="#{f}" target="#{formaPgtoCtrl.formaPgto}"/>
+				</p:commandButton>
+			</p:column>			
+		</p:dataTable>
+			
+		<p:dialog header="Cadastro Forma de PAgamento" widgetVar="cadDialog" modal="true"
+					showEffect="fade" hideEffect="fade" resizable="false">
+			<p:outputPanel id="cadDetail" style="text-align: center;" >
+			<h:panelGrid columns="2" style="text-align: left">
+				<h:outputLabel value="Código" />
+				<p:inputText value="#{formaPgtoCtrl.formaPgto.id}" size="6" maxlength="10" readonly="true" />
+				<h:outputLabel value="Nome" />
+				<p:inputText value="#{formaPgtoCtrl.formaPgto.descricao}" size="30" maxlength="20"/>
+				<h:outputLabel value="Nº Máx. Parcelas"/>
+				<p:inputText value="#{formaPgtoCtrl.formaPgto.numPadraoParc}" size="6" maxlength="3"/>
+				<h:outputLabel value="Nº Padrão de Parcelas"/>
+				<p:inputText value="#{formaPgtoCtrl.formaPgto.numPadraoParc}" size="6" maxlength="3"/>
+				<h:outputLabel value="Intervalo (dias)"/>
+				<p:inputText value="#{formaPgtoCtrl.formaPgto.intervaloDias}" size="6" maxlength="3"/>		
+			</h:panelGrid>
+			<h:commandButton action="#{formaPgtoCtrl.actionExcluir}" update="growl" value="Excluir" />
+			<h:commandButton action="#{formaPgtoCtrl.actionGravar}" update="growl" value="Gravar" />
+			<h:commandButton oncomplete="cadDialog.hide()" value="Cancelar" />
+		</p:outputPanel>
+	</p:dialog>
+	
+	</h:form>
+</h:body>
+</html>

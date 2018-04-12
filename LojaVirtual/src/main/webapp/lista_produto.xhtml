@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<h:head>
+	<title>LojaVirtual</title>
+</h:head>
+<h:body>
+	<h:form>
+		<div align="center">
+			<h:commandLink action="#{produtoCtrl.actionInserir()}" value="Inserir" /><br/>
+			<h:inputText value="#{produtoCtrl.filtro}" /> 
+			<h:commandButton action="#{produtoCtrl.buscar()}" value="Buscar" />
+			<h:dataTable value = "#{produtoCtrl.listagem}" var = "a"><br/>
+				<f:facet name="header"><h:outputLabel value="Lista de Produtos"/></f:facet>
+				<h:column>
+					<f:facet name="header"><h:outputLabel value="Código"/></f:facet>
+					<h:outputLabel value="#{a.id}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputLabel value="Nome"/></f:facet>
+					<h:outputLabel value="#{a.nome}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputLabel value="Preço"/></f:facet>
+					<h:outputLabel value="#{a.preco}"/>
+				</h:column>
+				<h:column>
+					<h:commandLink value="Alterar" action="#{produtoCtrl.actionAlterar(a)}"/>
+				</h:column>
+				<h:column>
+					<h:commandLink value="Excluir" action="#{produtoCtrl.actionExcluir(a)}">
+					</h:commandLink>
+				</h:column>
+			</h:dataTable>
+		</div>
+	</h:form>
+</h:body>
+</html>

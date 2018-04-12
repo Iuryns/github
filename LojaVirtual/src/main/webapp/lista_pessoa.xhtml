@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+		<h:head>
+	<title>LojaVirtual</title>
+</h:head>
+<h:body>
+	<h:form>
+		<div align="center">
+			<h:commandLink action="#{pessoaCtrl.actionInserir()}" value="Inserir" /><br/><br/>
+			<h:inputText value="#{pessoaCtrl.filtro}" /> 
+			<h:commandButton action="#{pessoaCtrl.buscar()}" value="Buscar" /><br/><br/>
+			<h:dataTable value = "#{pessoaCtrl.listagem}" var = "b">
+				<f:facet name="header"><h:outputLabel value="Lista de Pessoas"/></f:facet><br/>
+				<h:column>
+					<f:facet name="header"><h:outputLabel value="Código   "/></f:facet>
+					<h:outputLabel value="#{b.id}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputLabel value="Nome   "/></f:facet>
+					<h:outputLabel value="#{b.nome}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputLabel value="CPF   "/></f:facet>
+					<h:outputLabel value="#{b.cpf}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputLabel value="RG   "/></f:facet>
+					<h:outputLabel value="#{b.rg}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputLabel value="Tipo   "/></f:facet>
+					<h:outputLabel value="#{b.tipo}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputLabel value="Data de Nascimento  "/></f:facet>
+					<h:outputLabel value="#{b.data_nasc}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputLabel value="Senha  "/></f:facet>
+					<h:outputLabel value="#{b.senha}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputLabel value="e-mail   "/></f:facet>
+					<h:outputLabel value="#{b.email}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputLabel value="Cidade   "/></f:facet>
+					<h:outputLabel value="#{b.cidade}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputLabel value="UF   "/></f:facet>
+					<h:outputLabel value="#{b.uf}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputLabel value="CEP  "/></f:facet>
+					<h:outputLabel value="#{b.cep}"/>
+				</h:column>		
+				
+				<h:column>
+					<f:facet name="header"><h:outputLabel value="Rua   "/></f:facet>
+					<h:outputLabel value="#{b.rua}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputLabel value="bairro   "/></f:facet>
+					<h:outputLabel value="#{b.bairro}"/>
+				</h:column>
+				<h:column>
+					<h:commandLink value="Alterar" action="#{pessoaCtrl.actionAlterar(b)}"/>
+				</h:column>
+				<h:column>
+					<h:commandLink value="Excluir" action="#{pessoaCtrl.actionExcluir(b)}">
+					</h:commandLink>
+				</h:column>
+			</h:dataTable>
+		</div>
+	</h:form>
+</h:body>
+</html>
